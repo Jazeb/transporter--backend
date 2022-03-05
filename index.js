@@ -1,0 +1,26 @@
+const { ApolloServer } = require('apollo-server-express');
+
+const schemaWithResolvers = require('./server/graphql/index');
+const { CONFIG } = require("./server/config/keys");
+
+
+const app = require("./server/config/express");
+const PORT = CONFIG.port || 3001;
+const ENV = CONFIG.env;
+
+const http = require('http').createServer(app);
+
+const apolloServer = new ApolloServer({
+    
+    schema: schemaWithResolvers,
+    subscriptions: {
+        keepAlive: true,
+        onConnect: (connectionParams, webSocket, context) => console.log('Connected!'),
+        onDisconnect: (webSocket, context) => console.log('Disconnected!')
+    }
+});
+
+apolloServer.applyMiddleware({ app });
+apolloServer.installSubscriptionHandlers(http);
+
+http.listen(PORT, _ => console.log(`Server is running on port ${PORT}, ${ENV} `));

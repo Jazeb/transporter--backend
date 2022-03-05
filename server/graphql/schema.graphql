@@ -1,0 +1,65 @@
+
+type Subscription {
+	NEW_JOB_ALERT: Job
+	LOCATION_UPDATE: Location
+	ORDER_STATUS: Order
+}
+
+type Order {
+	order_id: Int!
+	vendor_id: Int
+	accepted_by: Int
+	customer_id: Int
+	reason: String
+	price: Int
+	tax: Int
+	total_price: Int
+	order_status: String
+	vendor_status: String,
+	vendor: Vendor
+}
+
+type Vendor {
+	lat: String!
+	lon: String!
+	first_name: String
+	last_name: String
+	phone_no: String
+	image_url: String
+}
+
+type Customer {
+	lat: String
+	lon: String
+	first_name: String
+	last_name: String
+	phone_no: String
+	image_url: String
+}
+
+type Job {
+	order_id: Int
+	source_lat: String
+	destination_lat: String
+	source_lon: String
+	destination_lon: String
+	vehicle_id: Int
+	capacity: String
+	note: String
+	price: Int
+	payment_method: String
+	customer_id: Int
+	total_price: Int
+	customer: Customer
+}
+
+type Location {
+	lat: String!
+	lon: String!
+	user_id: Int!
+}
+
+# this query is not used
+type Query {
+	GET_PRODUCT(product_id: Int!): [Job]
+}
