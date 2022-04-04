@@ -1,12 +1,12 @@
 INSERT INTO `vehicles` 
-(`vehicle_name`) VALUES
-    ('Open Truck'),
-    ('Enclosed Truck'),
-    ('Van or Kombi'),
-    ('Refrigerated Truck'),
-    ('Tow Truck'),
-    ('Tipper Truck'),
-    ('Brick carrier Truck');
+(`vehicle_name`, `rate`) VALUES
+    ('Open Truck', 150),
+    ('Enclosed Truck', 250),
+    ('Van or Kombi', 100),
+    ('Refrigerated Truck', 400),
+    ('Tow Truck', 300),
+    ('Tipper Truck', 600),
+    ('Brick carrier Truck', 700);
 ALTER TABLE vehicles MODIFY createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE vehicles MODIFY updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 

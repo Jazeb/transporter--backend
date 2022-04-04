@@ -21,6 +21,10 @@ module.exports = function (sequelize, DataTypes) {
         message: {
             type: DataTypes.STRING(255),
             allowNull: false
+        },
+        user_type: {
+            type: DataTypes.STRING(10),
+            allowNull: false
         }
     }, {
         sequelize,
