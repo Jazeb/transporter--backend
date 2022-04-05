@@ -55,9 +55,11 @@ router.post('/customer/order/cancel', authCustomer, userCrtl.cancelService);
 router.get('/customer/orders', authCustomer, userCrtl.getCustomerOrders);  // done
 router.get('/customer/order/:order_id', authCustomer, userCrtl.getOrderById);  // done
 router.get('/customer/notifications', authCustomer, userCrtl.getNotifications);
-router.get('/customer/vehices', authCustomer, ctrl.getVehicles); // done
+router.get('/customer/vehicles', authCustomer, ctrl.getVehicles); // done
 
 router.put('/customer/updateFCM', authCustomer, userCrtl.updateFCM);
+router.post('/customer/contactUs', authCustomer, userCrtl.addContactUs);  // done
+
 
 
 module.exports = router;
