@@ -402,12 +402,12 @@ async function placeService(req, res) {
         body['customer_id'] = req.user.id;
         body['vehicle_id'] = vehicle_id;
 
-        await userService.saveService(body);
+        const response = (await userService.saveService(body)).toJSON();
 
-        body['customer'] = req.user;
+        response['customer'] = req.user;
 
         pubsub.publish('NEW_JOB_ALERT', {
-            NEW_JOB_ALERT: body
+            NEW_JOB_ALERT: response
         });
 
         const fcm_obj = {
@@ -416,7 +416,7 @@ async function placeService(req, res) {
             body: `Your order has been successfully placed`
         }
 
-        resp.success(res, body, 'Order placed successfully');
+        resp.success(res, response, 'Order placed successfully');
         return await fcm.sendNotification(fcm_obj);
 
     } catch (error) {
