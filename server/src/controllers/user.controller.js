@@ -712,8 +712,8 @@ function getOrderById(req, res) {
 
 function addVehicle(req, res) {
     let id = req.user.id;
-    userService.addVehicle(req.body, id).then(_ => res.success(res, 'Vehicle added successfully'))
-        .catch(err => res.error(res, 'error adding vehicle', err.message));
+    userService.addVehicle(req.body, id).then(_ => resp.success(res, 'Vehicle added successfully'))
+        .catch(err => resp.error(res, 'error adding vehicle', err.message));
 }
 
 async function updateVendor(req, res) {

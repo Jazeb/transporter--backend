@@ -57,6 +57,14 @@ module.exports = function (sequelize, DataTypes) {
         eta_no: {
             type: DataTypes.STRING(255),
             allowNull: true
+        },
+        vehicle_id: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        capacity: {
+            type: DataTypes.STRING(100),
+            allowNull: false
         }
     }, {
         sequelize,
