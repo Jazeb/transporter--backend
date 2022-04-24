@@ -84,7 +84,7 @@ async function acceptServiceOrder(req, res) {
 
         const order = await view.find('ORDER', 'id', order_id);
         if (_.isEmpty(order) || order.state !== 'PENDING' || order.status !== 'PENDING')
-            return resp.error(res, 'Invalid order id provided');
+            return resp.error(res, `Order status is already ${order.status}`);
 
         let customer = await view.find('CUSTOMER', 'id', order.customer_id);
     
@@ -152,7 +152,7 @@ async function arrivedOrderUpdate(req, res) {
 
         const order = await view.find('ORDER', 'id', order_id);
         if (_.isEmpty(order) || order.state !== 'ACCEPTED' || order.status !== 'PENDING' || order.accepted_by !== user_id)
-            return resp.error(res, 'Invalid order id provided');
+            return resp.error(res, `Order status is already ${order.status}`);
 
         resp.success(res, 'vendor arrived event sent');
 
@@ -203,7 +203,7 @@ async function startService(req, res) {
 
         const order = await view.find('ORDER', 'id', order_id);
         if (_.isEmpty(order) || order.state !== 'ACCEPTED' || order.status !== 'PENDING')
-            return resp.error(res, 'Invalid order id provided');
+            return resp.error(res, `Order status is already ${order.status}`);
 
         let should_return = false;
 
@@ -267,7 +267,7 @@ async function endService(req, res) {
         const user_id = req.user.id;
         const order = await view.find('ORDER', 'id', order_id);
         if (_.isEmpty(order) || order.state !== 'ACCEPTED')
-            return resp.error(res, 'Invalid order id provided');
+            return resp.error(res, `Order status is already ${order.status}`);
 
         const data = {
             order_id,
