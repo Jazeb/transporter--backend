@@ -1,7 +1,7 @@
 {
-    "name": "saloon",
+    "name": "transporter",
     "version": "1.0.0",
-    "description": "Backend server of Saloon app for Web and mobile",
+    "description": "Backend server of Transporter app for Web and mobile",
     "main": "index.js",
     "scripts": {
         "test": "jest",

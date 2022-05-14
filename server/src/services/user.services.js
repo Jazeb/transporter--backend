@@ -12,7 +12,8 @@ const {
     VendorsReviews,
     CustomersReviews,
     Notifications,
-    ContactUs
+    ContactUs,
+    VendorOtps
 } = require('../../models/index');
 
 
@@ -48,7 +49,10 @@ module.exports = {
     getOrder,
     updateDocuments,
     addVehicle,
-    addContactUs
+    addContactUs,
+    addVendorOtp,
+    updateVendorOtp,
+    getVendorOtp
 }
 
 function updateDocuments(docs, id) {
@@ -370,6 +374,31 @@ function addContactUs(body) {
     return new Promise((resolve, reject) => {
         ContactUs.create(body)
             .then(_ => resolve(true))
+            .catch(err => reject(err));
+    });
+}
+
+function updateVendorOtp(data) {
+    return new Promise((resolve, reject) => {
+        const { email, ...rest } = data;
+        VendorOtps.update({ email }, { ...rest })
+            .then(_ => resolve(true))
+            .catch(err => reject(err));
+    });
+}
+
+function addVendorOtp(body) {
+    return new Promise((resolve, reject) => {
+        VendorOtps.create(body)
+            .then(_ => resolve(true))
+            .catch(err => reject(err));
+    });
+}
+
+function getVendorOtp(email) {
+    return new Promise((resolve, reject) => {
+        VendorOtps.findOne(email)
+            .then(data => resolve(data))
             .catch(err => reject(err));
     });
 }

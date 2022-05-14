@@ -40,6 +40,8 @@ router.post('/vendor/forgotPassword', userCrtl.forgotPassword);  // done
 router.put('/vendor/updateFCM', authVendor, userCrtl.updateFCM); // done
 router.post('/vendor/contactUs', authVendor, userCrtl.addContactUs);  // done
 
+router.post('/vendor/sendOtp', userCrtl.sendVendorOtp);  // done
+
 
 // customer APIs
 // router.post('/customer/logout', authCustomer, userCrtl.logout);

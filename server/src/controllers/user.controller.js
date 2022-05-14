@@ -32,7 +32,8 @@ module.exports = {
     uploadDocuments,
     addVehicle,
     updateVendor,
-    addContactUs
+    addContactUs,
+    sendVendorOtp
 }
 
 function uploadDocuments(req, res) {
@@ -87,7 +88,7 @@ async function acceptServiceOrder(req, res) {
             return resp.error(res, `Order status is already ${order.status}`);
 
         let customer = await view.find('CUSTOMER', 'id', order.customer_id);
-    
+
 
         let data = {
             order_id,
@@ -425,11 +426,37 @@ async function placeService(req, res) {
     }
 }
 
+async function sendVendorOtp(req, res) {
+    try {
+        const { email } = req.body;
+        if (!email)
+            return resp.error(res, 'Provide email in the body');
+
+        const is_exist = await view.find('VENDORS_OTP', 'email', email)
+
+        if (is_exist && is_exist.is_verified)
+            return resp.error(res, 'This email is already verified');
+
+        const data = { email }
+        const otp = await mailer.sendOtp(data);
+
+        if (!is_exist) await userService.addVendorOtp({ email, otp });
+        else await userService.updateVendorOtp({ email, otp, is_verified: false });
+
+        return resp.success(res, 'OTP sent to email');
+
+    } catch (err) {
+        console.error(err);
+        return resp.error(res, 'Error sending OTP', err);
+    }
+}
+
 
 async function userSignup(req, res) {
     try {
         const model = req.url == '/vendor/signup' ? 'VENDOR' : 'CUSTOMER';
         let already_exists = await view.find(model, 'email', req.body.email);
+
         if (!_.isEmpty(already_exists) && already_exists.phone_no == req.body.phone_no)
             return resp.error(res, 'User already exists with this email or phone');
 
@@ -644,9 +671,9 @@ function submitReview(req, res) {
     }
 }
 
-const stringToBoolean = string => string === 'false' ? false : !!string;
+// const stringToBoolean = string => string === 'false' ? false : !!string;
 
-/*function updateLocation(req, res) {
+/* function updateLocation(req, res) {
     const { lat, lon } = req.body;
     if (!lat || !lon) return resp.error(res, 'Provide lat and lon');
 
@@ -659,7 +686,7 @@ const stringToBoolean = string => string === 'false' ? false : !!string;
         .then(sendsubscriptionEvent(data))
         .then(_ => resp.success(res, 'Location updated'))
         .catch(err => resp.error(res, 'Error updating location', err));
-}*/
+}
 
 function sendsubscriptionEvent(data) {
     const pubsub = require('../../graphql/pubsub');
@@ -667,7 +694,7 @@ function sendsubscriptionEvent(data) {
     pubsub.publish('LOCATION_UPDATE', {
         LOCATION_UPDATE: data
     });
-}
+} */
 
 function getCustomerOrders(req, res) {
     const user_id = req.user.id;
