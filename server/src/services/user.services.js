@@ -264,7 +264,7 @@ function getVendors() {
 
 function updateVendors(data) {
     return new Promise((resolve, reject) => {
-        Vendors.update(data, { where: { id }, attributes: { exclude: ['id', 'email', 'password', 'created_at', 'updated_at'] } })
+        Vendors.update(data, { where: { id: data.id }, attributes: { exclude: ['id', 'email', 'password', 'created_at', 'updated_at'] } })
             .then(_ => Vendors.findOne({ where: { id } }).then(vendor => resolve(vendor)))
             .catch(err => reject(err));
     });
