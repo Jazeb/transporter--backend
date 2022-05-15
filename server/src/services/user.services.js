@@ -381,7 +381,7 @@ function addContactUs(body) {
 function updateVendorOtp(data) {
     return new Promise((resolve, reject) => {
         const { email, ...rest } = data;
-        VendorOtps.update({ email }, { ...rest })
+        VendorOtps.update({ ...rest }, { where: { email } })
             .then(_ => resolve(true))
             .catch(err => reject(err));
     });
