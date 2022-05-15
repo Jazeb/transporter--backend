@@ -49,9 +49,9 @@ function uploadDocuments(req, res) {
             let ele = docs[key];
 
             let ext = ele.name.replace(' ', '_').split('.').reverse()[0];
-            let fileName = uuid.v1();
+            let fileName = uuid.v1() + '.' + ext;
 
-            let dest_url = process.cwd() + '/server/assets/docs/' + fileName + '.' + ext;
+            let dest_url = process.cwd() + '/server/assets/docs/' + fileName;
 
             ele.mv(dest_url);
             user_docs[key] = fileName;
@@ -59,7 +59,7 @@ function uploadDocuments(req, res) {
     }
 
     userService.updateDocuments(user_docs, user.id)
-        .then(_ => resp.success(res, 'Document updated successfully'))
+        .then(_ => resp.success(res, user_docs))
         .catch(err => resp.error(res, 'Error updating documentation', err))
 
 }

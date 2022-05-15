@@ -6,6 +6,8 @@ const ctrl = require('../controllers/services.controller');
 const router = express.Router();
 
 router.use('/vendor/profileImage', express.static(process.cwd() + '/server/assets/profile_images/'));
+router.use('/vendor/documents', express.static(process.cwd() + '/server/assets/docs/'));
+
 router.use('/customer/profileImage', express.static(process.cwd() + '/server/assets/profile_images/'));
 
 
@@ -14,7 +16,7 @@ router.post('/vendor/login', userCrtl.login);  // done
 // router.post('/vendor/logout', authVendor, userCrtl.logout);
 router.post('/vendor/signup', userCrtl.userSignup); // done
 
-router.post('/vendor/documents', userCrtl.uploadDocuments); // done
+router.post('/vendor/documents', authVendor, userCrtl.uploadDocuments); // done
 // router.put('/vendor/update', authVendor, userCrtl.updateUser);
 // router.post('/vendor/review', authVendor, userCrtl.submitReview);
 

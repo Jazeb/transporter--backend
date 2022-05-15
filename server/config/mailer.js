@@ -42,7 +42,7 @@ const sendOtp = data => new Promise((resolve, reject) => {
         subject: 'Reset password email',
         html: `
                 <h2 style="color:black;">Welcome Transporter App</h2>
-                <p style="color:black;">Thanks for signing up your OTP is: ${otp} </p> 
+                <p style="color:black;">Thanks for signing up your OTP is: <b>${otp}</b> </p> 
                 <br>
                 <br>
                 Regards 
@@ -51,6 +51,7 @@ const sendOtp = data => new Promise((resolve, reject) => {
     };
 
     transporter.sendMail(mailOptions, (err, response) => {
+        console.log(response);
         if (err) reject(err);
         return resolve(otp);
     });
