@@ -70,6 +70,22 @@ module.exports = function (sequelize, DataTypes) {
         capacity: {
             type: DataTypes.STRING(100),
             allowNull: false
+        },
+        cnic_front: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        cnic_back: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        licence_front: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        licence_back: {
+            type: DataTypes.STRING(100),
+            allowNull: true
         }
     }, {
         sequelize,

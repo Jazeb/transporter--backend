@@ -443,7 +443,7 @@ async function sendVendorOtp(req, res) {
         if (!is_exist) await userService.addVendorOtp({ email, otp });
         else await userService.updateVendorOtp({ email, otp, is_verified: false });
 
-        return resp.success(res, 'OTP sent to email');
+        return resp.success(res, { otp });
 
     } catch (err) {
         console.error(err);
