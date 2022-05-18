@@ -761,7 +761,7 @@ async function updateVendor(req, res) {
         body['id'] = req.user.id;
 
         await userService.updateVendors(body);
-        return resp.success(res, 'Vendors updated successfully');
+        return resp.success(res, body);
 
     } catch (err) {
         console.log(err);
