@@ -32,10 +32,10 @@ const sendForgotEmail = user => {
     });
 };
 
-const genNo = _ => Number(Math.floor(1000 + Math.random() * 9000).toString());
+const genNo = n => Math.floor(Math.random() * (9 * Math.pow(10, n - 1))) + Math.pow(10, n - 1);
 
 const sendOtp = data => new Promise((resolve, reject) => {
-    const otp = genNo();
+    const otp = genNo(6);
     const mailOptions = {
         from: EMAIL.mailerEmail,
         to: data.email,
