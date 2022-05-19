@@ -762,7 +762,9 @@ async function updateVendor(req, res) {
         body['id'] = req.user.id;
 
         await userService.updateVendors(body);
-        return resp.success(res, body);
+        const vendor = await view.find('VENDOR', 'id', body.id);
+        delete vendor.password
+        return resp.success(res, vendor);
 
     } catch (err) {
         console.log(err);
