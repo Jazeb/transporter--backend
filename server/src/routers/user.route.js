@@ -43,6 +43,7 @@ router.put('/vendor/updateFCM', authVendor, userCrtl.updateFCM); // done
 router.post('/vendor/contactUs', authVendor, userCrtl.addContactUs);  // done
 
 router.post('/vendor/sendOtp', userCrtl.sendVendorOtp);  // done
+router.post('/vendor/payment', authVendor, userCrtl.addPaymentMethod);  // done
 
 
 // customer APIs

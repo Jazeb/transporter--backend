@@ -32,7 +32,8 @@ module.exports = {
     addVehicle,
     updateVendor,
     addContactUs,
-    sendVendorOtp
+    sendVendorOtp,
+    addPaymentMethod
 }
 
 function uploadDocuments(req, res) {
@@ -778,5 +779,14 @@ function addContactUs(req, res) {
     if (!body) return resp.error(res, 'Body is empty');
     body.user_type = req.user.user_type;
     userService.addContactUs(body).then(_ => resp.success(res, 'Request submitted successfully.'))
+        .catch(err => resp.error(res, 'Request failed', err.message));
+}
+
+function addPaymentMethod(req, res) {
+    const body = req.body;
+    if (!body)
+        return resp.error(res, 'Body is empty');
+    body.id = req.user.id;
+    userService.updateVendors(body).then(_ => resp.success(res, 'Payment method added'))
         .catch(err => resp.error(res, 'Request failed', err.message));
 }

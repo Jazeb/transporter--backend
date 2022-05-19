@@ -86,6 +86,18 @@ module.exports = function (sequelize, DataTypes) {
         licence_back: {
             type: DataTypes.STRING(100),
             allowNull: true
+        },
+        account_title: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        account_no: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        payment_type: {
+            type: DataTypes.STRING(100),
+            allowNull: true
         }
     }, {
         sequelize,
