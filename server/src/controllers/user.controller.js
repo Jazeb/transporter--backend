@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const fs = require('fs');
 const uuid = require('uuid');
 const validator = require("email-validator");
 
@@ -37,9 +36,11 @@ module.exports = {
 }
 
 function uploadDocuments(req, res) {
-
     const docs = req.files;
     const user = req.user;
+
+    if(!docs)
+        return resp.error(res, 'Docs not provided');
 
     let doc_names = ['cnic_front', 'cnic_back', 'licence_front', 'licence_back'];
     let user_docs = {};
