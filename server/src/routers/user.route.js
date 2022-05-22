@@ -21,6 +21,8 @@ router.post('/vendor/documents', authVendor, userCrtl.uploadDocuments); // done
 // router.post('/vendor/review', authVendor, userCrtl.submitReview);
 
 router.post('/vendor/vehicle', authVendor, userCrtl.addVehicle); // done
+router.get('/vendor/vehicles', authVendor, ctrl.getVehicles); // done
+
 router.put('/vendor/update', authVendor, userCrtl.updateVendor); // done
 
 router.get('/vendor/vehices', ctrl.getVehicles); // done
