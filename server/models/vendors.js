@@ -57,7 +57,8 @@ module.exports = function (sequelize, DataTypes) {
         },
         user_name: {
             type: DataTypes.STRING(100),
-            allowNull: true
+            allowNull: true,
+            unique: true
         },
         eta_no: {
             type: DataTypes.STRING(255),

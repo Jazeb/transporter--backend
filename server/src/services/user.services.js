@@ -402,3 +402,24 @@ function getVendorOtp(email) {
             .catch(err => reject(err));
     });
 }
+
+function getOrders(user_id, type) {
+    return new Promise((resolve, reject) => {
+        if (type == 'new') {
+            where = {
+                state: 'PENDING',
+                accepted_by: null
+            }
+        }
+        else if (type == 'completed') {
+            where = {
+                accepted_by: user_id, 
+                status: 'COMPLETED'
+            }
+        }
+
+        ServiceOrders.findAll({ where, raw: true })
+            .then(orders => resolve(orders))
+            .catch(err => reject(err));
+    });
+}

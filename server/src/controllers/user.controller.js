@@ -33,7 +33,8 @@ module.exports = {
     updateVendor,
     addContactUs,
     sendVendorOtp,
-    addPaymentMethod
+    addPaymentMethod,
+    getJobs
 }
 
 function uploadDocuments(req, res) {
@@ -789,4 +790,21 @@ function addPaymentMethod(req, res) {
     body.id = req.user.id;
     userService.updateVendors(body).then(_ => resp.success(res, 'Payment method added'))
         .catch(err => resp.error(res, 'Request failed', err.message));
+}
+
+async function getJobs(req, res) {
+    const { type } = req.params;
+
+    if (!type || !['new', 'completed'].includes(type))
+        return resp.error(res, 'Invalid selection for type');
+
+    
+    const user_id = req.user.id;
+
+    let orders = await userService.getOrders(user_id, type);
+
+    for(let order of orders) order.customer = await view.find('CUSTOMER', 'id', order.customer_id);
+    
+
+    return resp.success(res, orders);
 }
