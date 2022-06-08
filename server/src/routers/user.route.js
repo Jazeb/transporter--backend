@@ -52,7 +52,7 @@ router.get('/vendor/jobs/:type', authVendor, userCrtl.getJobs);  // done
 
 // customer APIs
 // router.post('/customer/logout', authCustomer, userCrtl.logout);
-// router.put('/customer/update', authCustomer, userCrtl.updateUser);
+router.put('/customer/update', authCustomer, userCrtl.updateCustomer);
 
 router.post('/customer/signup', userCrtl.userSignup); // done
 router.post('/customer/login', userCrtl.login);

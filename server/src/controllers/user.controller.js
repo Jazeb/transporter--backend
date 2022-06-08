@@ -34,7 +34,8 @@ module.exports = {
     addContactUs,
     sendVendorOtp,
     addPaymentMethod,
-    getJobs
+    getJobs,
+    updateCustomer
 }
 
 function uploadDocuments(req, res) {
@@ -772,7 +773,32 @@ async function updateVendor(req, res) {
         console.log(err);
         return resp.error(res, 'Error updating Vendors', err.message);
     }
+}
 
+async function updateCustomer(req, res) {
+    try {
+        const body = req.body;
+
+        if (req.files && req.files.profile_image) {
+            let file = req.files.profile_image;
+
+            let ext = file.name.replace(' ', '_').split('.').reverse()[0];
+            let fileName = uuid.v1();
+
+            let dest_url = process.cwd() + '/server/assets/profile_picture/' + fileName + '.' + ext;
+
+            file.mv(dest_url);
+        }
+
+        body['id'] = req.user.id;
+
+        const customer = await userService.updateCustomers(body);
+        return resp.success(res, customer);
+
+    } catch (err) {
+        console.log(err);
+        return resp.error(res, 'Error updating Vendors', err.message);
+    }
 }
 
 function addContactUs(req, res) {
