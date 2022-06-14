@@ -415,6 +415,12 @@ async function placeService(req, res) {
             NEW_JOB_ALERT: response
         });
 
+        response['vendor_id'] = null;
+
+        pubsub.publish('ORDER_STATUS', {
+            ORDER_STATUS: response
+        });
+
         const fcm_obj = {
             reg_id: req.user.fcm_token,
             title: 'Order placed successfully',
