@@ -38,7 +38,7 @@ type Customer {
 }
 
 type Job {
-	order_id: Int
+	id: Int
 	source_lat: String
 	destination_lat: String
 	source_lon: String
