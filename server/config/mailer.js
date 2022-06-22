@@ -3,6 +3,7 @@ const { EMAIL, CONFIG } = require('./keys');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    secure: true,
     auth: {
         user: EMAIL.mailerEmail,
         pass: EMAIL.mailerEmailPassword

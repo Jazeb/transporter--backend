@@ -24,6 +24,7 @@ router.post('/vendor/vehicle', authVendor, userCrtl.addVehicle); // done
 router.get('/vendor/vehicles', authVendor, ctrl.getVehicles); // done
 
 router.put('/vendor/update', authVendor, userCrtl.updateVendor); // done
+router.patch('/vendor/updateStatus', authVendor, userCrtl.updateVendorStatus); // done
 
 router.get('/vendor/vehices', ctrl.getVehicles); // done
 
@@ -48,6 +49,7 @@ router.post('/vendor/sendOtp', userCrtl.sendVendorOtp);  // done
 router.post('/vendor/payment', authVendor, userCrtl.addPaymentMethod);  // done
 
 router.get('/vendor/jobs/:type', authVendor, userCrtl.getJobs);  // done
+router.get('/vendor/history', authVendor, userCrtl.getHistory);  // done
 
 
 // customer APIs

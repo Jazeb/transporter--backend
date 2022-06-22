@@ -35,7 +35,9 @@ module.exports = {
     sendVendorOtp,
     addPaymentMethod,
     getJobs,
-    updateCustomer
+    updateCustomer,
+    getHistory,
+    updateVendorStatus
 }
 
 function uploadDocuments(req, res) {
@@ -79,7 +81,7 @@ function logout(req, res) {
 
 async function acceptServiceOrder(req, res) {
     try {
-        const { order_id, status } = req.body;
+        const { order_id, status, arrival_time } = req.body;
         const user_id = req.user.id;
 
         if (!order_id || !status) return resp.error(res, 'Provide required fields');
@@ -116,6 +118,7 @@ async function acceptServiceOrder(req, res) {
         else if (status == 'ACCEPT') {
             data['order_status'] = 'ON_THE_WAY';
             data['accepted_by'] = user_id;
+            data['arrival_time'] = arrival_time;
 
             notif_data['user_id'] = order.customer_id;
         }
@@ -753,6 +756,18 @@ function addVehicle(req, res) {
         .catch(err => resp.error(res, 'error adding vehicle', err.message));
 }
 
+
+function updateVendorStatus(req, res) {
+    const status = req.body.status;
+    const user_id = req.user.id;
+    if(!['ONLINE', 'OFFLINE'].includes(status))
+        return resp.error(res, 'Invalid status');
+
+    return userService.updateVendors({ status, id: user_id })
+        .then(_ => resp.success(res, 'Status updated successfully'))
+        .catch(err => resp.error(res, 'Error updating status', err))
+}
+
 async function updateVendor(req, res) {
     try {
         const body = req.body;
@@ -834,6 +849,18 @@ async function getJobs(req, res) {
     const user_id = req.user.id;
 
     let orders = await userService.getOrders(user_id, type);
+
+    for(let order of orders) order.customer = await view.find('CUSTOMER', 'id', order.customer_id);
+    
+
+    return resp.success(res, orders);
+}
+
+async function getHistory(req, res) {
+
+    const user_id = req.user.id;
+
+    let orders = await userService.getOrders(user_id, 'completed')
 
     for(let order of orders) order.customer = await view.find('CUSTOMER', 'id', order.customer_id);
     

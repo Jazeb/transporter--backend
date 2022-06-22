@@ -35,6 +35,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(255),
             allowNull: true
         },
+        status: {
+            type: DataTypes.ENUM(['ONLINE', 'OFFLINE']),
+            allowNull: false,
+            defaultValue: 'ONLINE'
+        },
         lat: {
             type: DataTypes.INTEGER(11),
             allowNull: true
