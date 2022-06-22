@@ -24,7 +24,7 @@ router.post('/vendor/vehicle', authVendor, userCrtl.addVehicle); // done
 router.get('/vendor/vehicles', authVendor, ctrl.getVehicles); // done
 
 router.put('/vendor/update', authVendor, userCrtl.updateVendor); // done
-router.patch('/vendor/updateStatus', authVendor, userCrtl.updateVendorStatus); // done
+router.put('/vendor/updateStatus', authVendor, userCrtl.updateVendorStatus); // done
 
 router.get('/vendor/vehices', ctrl.getVehicles); // done
 
