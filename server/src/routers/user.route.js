@@ -50,6 +50,7 @@ router.post('/vendor/payment', authVendor, userCrtl.addPaymentMethod);  // done
 
 router.get('/vendor/jobs/:type', authVendor, userCrtl.getJobs);  // done
 router.get('/vendor/history', authVendor, userCrtl.getHistory);  // done
+router.get('/vendor/faqs', authVendor, userCrtl.getFAQs);  // done
 
 
 // customer APIs

@@ -13,6 +13,7 @@ Notifications = require('./notifications')(sequelize, Sequelize);
 Admin = require('./admin')(sequelize, Sequelize);
 ContactUs = require('./contactUs')(sequelize, Sequelize);
 VendorOtps = require('./vendorOtps')(sequelize, Sequelize);
+FAQs = require('./faqs')(sequelize, Sequelize);
 
 
 // VendorOtps.sync({ alter: true }).then(s => console.log(s)).catch(err => console.error(err));
@@ -43,4 +44,4 @@ Vendors.hasMany(ServiceOrders, {
 });
 
 
-module.exports = { db, Admin, VendorOtps, Customers, Vendors, Vehicles, ServiceOrders, CustomersReviews, VendorsReviews, Notifications, ContactUs };
+module.exports = { db, Admin, VendorOtps, Customers, Vendors, Vehicles, ServiceOrders, CustomersReviews, VendorsReviews, Notifications, ContactUs, FAQs };

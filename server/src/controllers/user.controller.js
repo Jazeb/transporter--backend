@@ -37,7 +37,8 @@ module.exports = {
     getJobs,
     updateCustomer,
     getHistory,
-    updateVendorStatus
+    updateVendorStatus,
+    getFAQs
 }
 
 function uploadDocuments(req, res) {
@@ -866,4 +867,8 @@ async function getHistory(req, res) {
     
 
     return resp.success(res, orders);
+}
+
+async function getFAQs(req, res) {
+    return userService.getFAQs().then(faqs => resp.success(res, faqs)).catch(err => resp.error(err))
 }
