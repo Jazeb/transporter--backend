@@ -40,7 +40,7 @@ router.get('/vendor/orders', authVendor, userCrtl.getVendorOrders); // done
 
 router.post('/vendor/changePassword', authVendor, userCrtl.changePassword);   // done
 router.post('/vendor/forgotPassword', userCrtl.forgotPassword);  // done
-// router.post('/vendor/updateLocation', authVendor, userCrtl.updateLocation);
+router.put('/vendor/updateLocation', authVendor, userCrtl.updateLocation); //done
 
 router.put('/vendor/updateFCM', authVendor, userCrtl.updateFCM); // done
 router.post('/vendor/contactUs', authVendor, userCrtl.addContactUs);  // done

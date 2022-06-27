@@ -38,7 +38,8 @@ module.exports = {
     updateCustomer,
     getHistory,
     updateVendorStatus,
-    getFAQs
+    getFAQs,
+    updateLocation
 }
 
 function uploadDocuments(req, res) {
@@ -687,16 +688,16 @@ function submitReview(req, res) {
 
 // const stringToBoolean = string => string === 'false' ? false : !!string;
 
-/* function updateLocation(req, res) {
+function updateLocation(req, res) {
     const { lat, lon } = req.body;
-    if (!lat || !lon) return resp.error(res, 'Provide lat and lon');
+    if (!lat || !lon) return resp.error(res, 'Provide lat and long values');
 
     const user = req.user;
     const data = {
         lat, lon,
         user_id: user.id,
     }
-    userService.updateLocation(data)
+    return userService.updateLocation(data)
         .then(sendsubscriptionEvent(data))
         .then(_ => resp.success(res, 'Location updated'))
         .catch(err => resp.error(res, 'Error updating location', err));
@@ -708,7 +709,7 @@ function sendsubscriptionEvent(data) {
     pubsub.publish('LOCATION_UPDATE', {
         LOCATION_UPDATE: data
     });
-} */
+}
 
 function getCustomerOrders(req, res) {
     const user_id = req.user.id;

@@ -13,7 +13,8 @@ const {
     CustomersReviews,
     Notifications,
     ContactUs,
-    VendorOtps
+    VendorOtps,
+    FAQs
 } = require('../../models/index');
 
 
@@ -52,7 +53,8 @@ module.exports = {
     addContactUs,
     addVendorOtp,
     updateVendorOtp,
-    getVendorOtp
+    getVendorOtp,
+    getFAQs
 }
 
 function updateDocuments(docs, id) {
@@ -422,4 +424,8 @@ function getOrders(user_id, type) {
             .then(orders => resolve(orders))
             .catch(err => reject(err));
     });
+}
+
+function getFAQs() {
+    return new Promise((resolve, reject) => FAQs.findAll({}).then(faqs => resolve(faqs)).catch(err => reject(err)));
 }
