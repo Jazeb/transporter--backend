@@ -39,6 +39,7 @@ module.exports = {
     getHistory,
     updateVendorStatus,
     getFAQs,
+    verifyOTP,
     updateLocation
 }
 
@@ -872,4 +873,27 @@ async function getHistory(req, res) {
 
 async function getFAQs(req, res) {
     return userService.getFAQs().then(faqs => resp.success(res, faqs)).catch(err => resp.error(err))
+}
+
+async function verifyOTP(req, res) {
+
+    const email = req.user.email;
+    const user_id = req.user.id;
+    const { otp } = req.body;
+
+    if (!otp) return resp.error(res, 'Provide OTP');
+
+
+    const current_otp = await view.find('VENDORS_OTP', 'email', email);
+    if (!current_otp) return resp.error(res, 'OTP does not exist for this user');
+
+    if (current_otp.isVerified) return resp.error(res, 'OTP is already verified for this user');
+    
+
+    if (otp !== current_otp.otp) return resp.error(res, 'Invalid OTP');
+
+    await userService.updateVendorOtp({ email, isVerified: true });
+    await userService.updateVendors({ id: user_id, is_verified: true });
+
+    return resp.success(res, 'OTP verified successfully');
 }

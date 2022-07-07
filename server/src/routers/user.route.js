@@ -46,6 +46,7 @@ router.put('/vendor/updateFCM', authVendor, userCrtl.updateFCM); // done
 router.post('/vendor/contactUs', authVendor, userCrtl.addContactUs);  // done
 
 router.post('/vendor/sendOtp', userCrtl.sendVendorOtp);  // done
+router.post('/vendor/verifyOTP', userCrtl.verifyOTP); // done// done
 router.post('/vendor/payment', authVendor, userCrtl.addPaymentMethod);  // done
 
 router.get('/vendor/jobs/:type', authVendor, userCrtl.getJobs);  // done

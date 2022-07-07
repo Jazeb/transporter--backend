@@ -104,6 +104,11 @@ module.exports = function (sequelize, DataTypes) {
         payment_type: {
             type: DataTypes.STRING(100),
             allowNull: true
+        },
+        is_verified: {
+            type: DataTypes.BOOLEAN(),
+            allowNull: false,
+            defaultValue: false
         }
     }, {
         sequelize,
