@@ -753,8 +753,9 @@ function getOrderById(req, res) {
         .catch(err => resp.error(res, 'Somthing went wrong', err.message));
 }
 
-function addVehicle(req, res) {
+async function addVehicle(req, res) {
     let id = req.user.id;
+    await userService.updateVendors({ id, is_verified: true });
     userService.addVehicle(req.body, id).then(_ => resp.success(res, 'Vehicle added successfully'))
         .catch(err => resp.error(res, 'error adding vehicle', err.message));
 }
