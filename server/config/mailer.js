@@ -3,8 +3,7 @@ const { EMAIL, CONFIG } = require('./keys');
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-  port: 587,
-    secure: true,
+    secure: false,
     auth: {
         user: EMAIL.mailerEmail,
         pass: EMAIL.mailerEmailPassword
